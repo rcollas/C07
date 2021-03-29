@@ -1,0 +1,75 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rcollas <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/03/29 08:52:12 by rcollas           #+#    #+#             */
+/*   Updated: 2021/03/29 10:49:03 by rcollas          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include <stdlib.h>
+
+int		ft_strlen(char *str)
+{
+	int i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
+}
+
+char	*ft_strcat(char *dest, char *src)
+{
+	int i;
+	int j;
+
+	i = 0;
+	j = 0;
+	while (dest[i])
+		i++;
+	while (src[j])
+		dest[i++] = src[j++];
+	dest[i] = '\0';
+	return (dest);
+}
+
+char	*ft_strjoin(int size, char **strs, char *sep)
+{
+	char *final_str;
+	int dest_size;
+	int i;
+
+	i = 0;
+	dest_size = 0;
+	while (i < size)
+	{
+		dest_size += ft_strlen(strs[i]) + ft_strlen(sep);
+		i++;
+	}
+	if (!(final_str = (char *)malloc(sizeof(final_str) * dest_size + 1)))
+		return (0);
+	i = 0;
+	while (i < size)
+	{
+		ft_strcat(final_str, strs[i]);
+		if (i + 1 != size)
+			ft_strcat(final_str, sep);
+		i++;
+	}
+	return (final_str);
+}
+
+#include <stdio.h>
+
+int		main(void)
+{
+	char *str[] = {"test", "sexe", "membrane", "zyclon", "filandreux", "gazologie"};
+	char *sep = ", ";
+	char *test[] = {""};
+
+	printf("%s\n", ft_strjoin(6, test, sep));
+}
